@@ -11,10 +11,11 @@ import {
 } from "react-native";
 import { DataStore } from "@aws-amplify/datastore";
 import { Genres } from "./src/models";
-export default function App() {
+export default function HomeScreen() {
   useEffect(() => {
     async function getGenre() {
       const models = await DataStore.query(Genres);
+      console.log(models);
       setGenres(models)
     }
     getGenre()
