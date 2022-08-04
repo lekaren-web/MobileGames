@@ -8,69 +8,32 @@ import {
   ScrollView,
   TouchableOpacity,
   ImageBackground,
-  Pressable
 } from "react-native";
 import { DataStore } from "@aws-amplify/datastore";
 import { Genres } from "./src/models";
-export default function HomeScreen(props) {
+export default function MultiPlayer(props) {
   useEffect(() => {
     async function getGenre() {
       const models = await DataStore.query(Genres);
        
-      setGenres(models)
+      setGenres(models);
     }
-    getGenre()
+    getGenre();
   }, []);
   const [genres, setGenres] = useState([]);
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#000" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <ScrollView>
         <View>
-          <Text style={styles.header}>Select a genre</Text>
+          <Text style={styles.header}>MULTIPLAYER</Text>
         </View>
-        <View style={styles.container}>
-          {genres ? (
-            genres.map((e, index) => {
-              return (
-                <TouchableOpacity
-                  key={index}
-                  style={[styles.component1, styles.shadowProp]}
-                  onPress={() =>{
-                      props.navigation.navigate(e.name)
-                  }}
-                >
-                  <ImageBackground
-                    source={{uri: e.image}}
-                    resizeMode="cover"
-                    style={styles.coverImage}
-                    blurRadius={0.6}
-                    imageStyle={{ opacity: 0.5 }}
-                  >
-                    <View style={styles.overlay}>
-                      <Text
-                        style={{
-                          textAlign: "center",
-                          fontWeight: "bold",
-                          fontSize: 26,
-                          color: "white",
-                          letterSpacing: 4,
-                        }}
-                      >
-                        {e.name}
-                      </Text>
-                    </View>
-                  </ImageBackground>
-                </TouchableOpacity>
-              );
-            })
-          ) : (
-            <View>
-              <Text>No Genres</Text>
-            </View>
-          )}
           <StatusBar style="auto" />
-        </View>
       </ScrollView>
+      <TouchableOpacity onPress={() => {
+          props.navigation.navigate('HomeScreen')
+      }}>
+          <Text>Back</Text>
+      </TouchableOpacity>
       {/* hide nav for now */}
       {/* <View style={styles.nav}>
         <Text>Nav</Text>
@@ -121,9 +84,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 26,
     textAlign: "center",
-    color: "white",
+    color: "black",
     marginTop: 10,
-    display: "none",
   },
   coverImage: {
     height: "100%",
